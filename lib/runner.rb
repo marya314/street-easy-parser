@@ -1,4 +1,5 @@
 require_relative '../config/environment'
+require 'pry'
 
 class Runner
 
@@ -8,10 +9,20 @@ class Runner
         @top_listings = top_listings
     end
 
-    #get sales and rental listing data from parser
-    def get_data
-        get_parsed_listings
+    #get sales and rental listing data
+    def get_listing_data
+        @top_listings.get_listings
+        binding.pry
     end
+
+    #get parsed data as an array of hashes
+
+    def get_parsed_data
+        @top_listings.get_parsed_listings
+    end
+
+### @top_listings.all_sales_listings is sales array
+### @top_listings.all_rental_listings is rental array
 
     #convert data to json and push into an array
         def arrays_to_json
@@ -39,3 +50,5 @@ end
 @top_listings = TopListings.new
 # binding.pry
 @runner = Runner.new(@top_listings)
+@runner.get_listing_data
+@runner.get_parsed_data
