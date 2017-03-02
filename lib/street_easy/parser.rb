@@ -1,9 +1,22 @@
 class Parser
 
+    attr_reader :all_sales_listings, :all_rental_listings
+
+    def initialize(all_sales_listings, all_rental_listings)
+        @all_sales_listings = all_sales_listings
+        @all_rental_listings = all_rental_listings
+    end
+
+    #get parsed listing data
+    def get_parsed_listings
+        @sales_scrape_results = build_sales_array
+        @rental_scrape_results = build_rentals_array
+    end
+
     #Build array of hashes for both sales and rentals with required information
-    def build_sales_array
-    sales_listings = []
-        all_sales_listings.each_with_index do |val, info|
+    def build_sales_array(all_sales_listings)
+    @sales_listings = []
+        @all_sales_listings.each_with_index do |val, info|
             sales_listings <<
             {
                 "listing_class" => "sale",
@@ -18,9 +31,9 @@ class Parser
         end
     end
 
-    def build_rentals_array
-    rental_listings = []
-        all_rental_listings.each_with_index do |val, info|
+    def build_rentals_array(all_rental_listings)
+    @rental_listings = []
+        @all_rental_listings.each_with_index do |val, info|
             rental_listings <<
             {
                 "listing_class" => "rental",
@@ -35,23 +48,6 @@ class Parser
         end
     end
 
-#convert data to json
-    def arrays_to_json
-        json_arr = []
-        sales_listings.each do |hash|
-            json_arr << hash.to_json
-        end
 
-        rental_listings.each do |hash|
-            json_arr << hash.to_json
-        end
-    end
-
-    def json_file_open
-    #open temporary json file
-        File.open("listings.json", "w+") do |f|
-          f.write(JSON.pretty_generate(listings.flatten))
-        end
-    end
 
 end
