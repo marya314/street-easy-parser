@@ -4,60 +4,43 @@
 class TopListings
 # binding.pry
 
-    attr_reader :all_sales_listings, :all_rental_listings
+    attr_reader :response
 
-    def initialize
-        @all_sales_listings = all_sales_listings
-        @all_rental_listings = all_rental_listings
-    end
+        # def initialize
+        #     @all_sales_listings = all_sales_listings
+        #     @all_rental_listings = all_rental_listings
+        # end
 
-    def get_listings
-        sales_doc = find_sales_listings
-        @all_sales_listings = parse_sales_listings(sales_doc)
-        rental_doc = find_rental_listings
-        @all_rental_listings = parse_rental_listings(rental_doc)
-        # @all_sales_listings
-        # @all_rental_listings
-        #  binding.pry
-    end
+        def get_listings
+            all_sales_listings = find_sales_listings
+            all_rental_listings = find_rental_listings
+            @response = all_sales_listings += all_rental_listings
+            # binding.pry
+        end
 
-    #open and parse document using nokogiri to find sales listings
-    def find_sales_listings
-        # binding.pry
-        sales_res = open('spec/fixtures/sales_listings.html').read
-        # binding.pry
-        sales_doc = Nokogiri::HTML(sales_res)
-        sales_doc
-        # binding.pry
-    end
+        #open and parse sales html document using nokogiri
+        def find_sales_listings
+            sales_res = open('spec/fixtures/sales_listings.html').read
+            sales_doc = Nokogiri::HTML(sales_res)
+            #find all sales entries
+            all_sales_listings = sales_doc.css('.details')
+            #remove the first two nodes ('featured' listings)
+            all_sales_listings.shift
+            all_sales_listings.shift
+            all_sales_listings
+            # binding.pry
+        end
 
-    #find all qualifying sales listings on the page
-    def parse_sales_listings(sales_doc)
-        all_sales_listings = sales_doc.css('.details')
-        #remove the first two nodes ('featured' listings)
-        all_sales_listings.shift
-        all_sales_listings.shift
-        all_sales_listings
-    end
-
-    #open and parse document using nokogiri to find rental listings
-    def find_rental_listings
-        rental_res = open('spec/fixtures/rental_listings.html').read
-        rental_doc = Nokogiri::HTML(rental_res)
-        rental_doc
-        # binding.pry
-    end
-
-    #find all qualifying rental listings on the page
-    def parse_rental_listings(rental_doc)
-        all_rental_listings = rental_doc.css('.details')
-        #remove the first two nodes ('featured' listings)
-        all_rental_listings.shift
-        all_rental_listings.shift
-        all_rental_listings
-    end
+        #open and parse rental html document using nokogiri
+        def find_rental_listings
+            rental_res = open('spec/fixtures/rental_listings.html').read
+            rental_doc = Nokogiri::HTML(rental_res)
+            #find all rental entries
+            all_rental_listings = rental_doc.css('.details')
+            #remove the first two nodes ('featured' listings)
+            all_rental_listings.shift
+            all_rental_listings.shift
+            all_rental_listings
+        end
 
 end
-
-# get_listings
-# binding.pry

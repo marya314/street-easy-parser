@@ -67,18 +67,26 @@
 
 class Parser
 
-    attr_reader :all_sales_listings, :all_rental_listings
+    attr_reader :all_sales_listings, :all_rental_listings, :sales_scrape_results, :rental_scrape_results
 
-    def initialize(all_sales_listings, all_rental_listings)
-        @all_sales_listings = all_sales_listings
-        @all_rental_listings = all_rental_listings
-    end
+    # def initialize(all_sales_listings, all_rental_listings)
+    #     @all_sales_listings = all_sales_listings
+    #     @all_rental_listings = all_rental_listings
+    # end
 
     #run methods in Parser class
-    def get_parsed_listings
-        sales_scrape_results = build_sales_array
-        rental_scrape_results = build_rentals_array
+    def get_parsed_listings(all_sales_listings, all_rental_listings)
+        binding.pry
+        @sales_scrape_results = build_sales_array(all_sales_listings)
+        @rental_scrape_results = build_rentals_array(all_rental_listings)
     end
+
+    # def get_listings
+    #     @all_sales_listings = find_sales_listings
+    #     @all_rental_listings = find_rental_listings
+    #     #binding.pry
+    # end
+
 
     # Build array of hashes for sales with required information
     def build_sales_array(all_sales_listings)
