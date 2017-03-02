@@ -1,8 +1,3 @@
-require 'open-uri'
-require 'nokogiri'
-require 'json'
-require 'pry'
-
 class Parser
 
     #Build array of hashes for both sales and rentals with required information

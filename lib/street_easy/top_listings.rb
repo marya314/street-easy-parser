@@ -1,12 +1,9 @@
-require 'open-uri'
-require 'nokogiri'
-require 'pry'
-
 class TopListings
 
     #I was not able to scrape the website due to a 405: Method Not Allowed error. I downloaded the content of the search into two HTML files and uploaded them in spec/fixtures. The following code scrapes data from the HTML files.
 
     def find_sales_listings
+        binding.pry
         res = open('../spec/fixtures/sales_listings.html').read
         doc = Nokogiri::HTML(res)
         # binding.pry
