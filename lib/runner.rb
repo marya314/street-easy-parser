@@ -23,7 +23,6 @@ class Runner
 private
     #convert data to json and push into an array
         def response_to_json(parsed_response)
-            # binding.pry
             json_arr = []
             parsed_response.each do |hash|
                 json_arr << hash.to_json
@@ -40,11 +39,5 @@ end
 
 #run program
 @top_listings = TopListings.new
-# binding.pry
 @runner = Runner.new(@top_listings)
-# @runner.get_listing_data
 @runner.scrape_data
-
-
-# binding.pry
-# @runner.get_parsed_data(all_sales_listings, all_rental_listings)

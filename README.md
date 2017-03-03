@@ -1,24 +1,12 @@
-# MyLib
+# Street Easy Parser
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/my_lib`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Street Easy Parser is a lightweight Ruby program that scrapes the most expensive sales and rental listings in the SOHO neighborhood from a search on streeteasy.com. The results are structured then stored in a JSON file. Street Easy Parser does not scrape directly from the website due to a 405 error.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'my_lib'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install my_lib
+1. Run bundle install.
+2. Run ruby lib/runner.rb
+3. Open the resulting listings.json file.
 
 ## Usage
 
