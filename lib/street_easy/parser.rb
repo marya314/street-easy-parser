@@ -66,35 +66,36 @@
 ####################
 
 class Parser
-
-    attr_reader :all_sales_listings, :all_rental_listings, :sales_scrape_results, :rental_scrape_results
-
-    # def initialize(all_sales_listings, all_rental_listings)
-    #     @all_sales_listings = all_sales_listings
-    #     @all_rental_listings = all_rental_listings
-    # end
-
-    #run methods in Parser class
-    def get_parsed_listings(all_sales_listings, all_rental_listings)
-        binding.pry
-        @sales_scrape_results = build_sales_array(all_sales_listings)
-        @rental_scrape_results = build_rentals_array(all_rental_listings)
+#
+    attr_reader :parsed_listing
+#
+#     # def initialize(all_sales_listings, all_rental_listings)
+#     #     @all_sales_listings = all_sales_listings
+#     #     @all_rental_listings = all_rental_listings
+#     # end
+#
+#     #run methods in Parser class
+# binding.pry
+    def get_parsed_listings(listings)
+        # binding.pry
+        @parsed_listings = build_listing_array(listings)
+        # binding.pry
     end
-
-    # def get_listings
-    #     @all_sales_listings = find_sales_listings
-    #     @all_rental_listings = find_rental_listings
-    #     #binding.pry
-    # end
-
-
-    # Build array of hashes for sales with required information
-    def build_sales_array(all_sales_listings)
-    sales_listings = []
-        @all_sales_listings.each_with_index do |val, info|
-            sales_listings <<
+#
+#     # def get_listings
+#     #     @all_sales_listings = find_sales_listings
+#     #     @all_rental_listings = find_rental_listings
+#     #     #binding.pry
+#     # end
+#
+#
+    # Parse data for required information and build an array of hashes
+     def build_listing_array(all_listings)
+    parsed_listings_array = []
+        all_listings.each_with_index do |val, info|
+            parsed_listings_array <<
             {
-                "listing_class" => "sale",
+                "listing_class" => val.css('div.details-title a')[0]['data-gtm-listing-type'],
                 "address" => val.css('.details-title>a').text.split('#')[0].gsub(/\s+$/,''),
                 "unit" => val.css('.details-title>a')[0].text.partition('#').last,
                 "url" => "www.streeteasy.com/" + val.css('.details-title>a')[0]['href'],
@@ -104,29 +105,29 @@ class Parser
             #instantiate each listing
             listing = Listing.new(listing)
         end
-        sales_listings
+        parsed_listings_array
     end
-
-    # Build array of hashes for both rentals with required information
-    def build_rentals_array(all_rental_listings)
-    rental_listings = []
-        @all_rental_listings.each_with_index do |val, info|
-            rental_listings <<
-            {
-                "listing_class" => "rental",
-                "address" => val.css('.details-title>a').text.split('#')[0].gsub(/\s+$/,''),
-                "unit" => val.css('.details-title>a')[0].text.partition('#').last,
-                "url" => "www.streeteasy.com/" + val.css('.details-title>a')[0]['href'],
-                "price" => val.css('span.price').text.delete('$ ,').to_i
-
-            }
-            #instantiate each listing
-            listing = Listing.new(listing)
-        end
-        rental_listings
-    end
-
 end
+    # Build array of hashes for both rentals with required information
+#     def build_rentals_array(all_rental_listings)
+#     rental_listings = []
+#         @all_rental_listings.each_with_index do |val, info|
+#             rental_listings <<
+#             {
+#                 "listing_class" => "rental",
+#                 "address" => val.css('.details-title>a').text.split('#')[0].gsub(/\s+$/,''),
+#                 "unit" => val.css('.details-title>a')[0].text.partition('#').last,
+#                 "url" => "www.streeteasy.com/" + val.css('.details-title>a')[0]['href'],
+#                 "price" => val.css('span.price').text.delete('$ ,').to_i
+#
+#             }
+#             #instantiate each listing
+#             listing = Listing.new(listing)
+#         end
+#         rental_listings
+#     end
+#
+# end
 
 
 
