@@ -17,7 +17,6 @@ class Parser
                 "unit" => val.css('.details-title>a')[0].text.partition('#').last,
                 "url" => "www.streeteasy.com/" + val.css('.details-title>a')[0]['href'],
                 "price" => val.css('span.price').text.delete('$ ,').to_i
-
             }
             #instantiate each listing
         listing = Listing.new(listing)

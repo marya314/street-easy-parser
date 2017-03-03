@@ -3,25 +3,26 @@ require 'pry'
 
 class Runner
 
-    attr_reader :top_listings, :all_listings, :parsed_data
+    attr_reader :top_listings, :parsed_data
 
     def initialize(top_listings)
         @top_listings = top_listings
-        @all_listings
     end
 
     def scrape_data
         #get all sales and rental listings
         response = @top_listings.get_listings
-        #get parsed data array of hashes
+        #get parsed data array of hashes with required information for each listing
         @parsed_data = Parser.new
         parsed_response = @parsed_data.get_parsed_listings(response)
+        #convert data into json
         json_data = response_to_json(parsed_response)
+        #open json file
         json_file_open(json_data)
     end
 
 private
-    #convert data to json and push into an array
+        #convert data to json and push into an array
         def response_to_json(parsed_response)
             json_arr = []
             parsed_response.each do |hash|

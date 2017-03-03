@@ -5,7 +5,7 @@ class Listing
     @@count = 0
     @@instances = []
 
-    #assigns Nokogiri nodes to appropriate variables when each object is instantiated
+        #assigns Nokogiri nodes to appropriate variables when each object is instantiated
         def initialize(listing)
             @listing_class
             @address
