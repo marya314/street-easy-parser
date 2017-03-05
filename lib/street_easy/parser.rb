@@ -7,7 +7,7 @@ class Parser
     # Parse data for required information and build an array of hashes
      def build_listing_array(all_listings)
          parsed_listings_array = []
-         all_listings.each_with_index do |val, info|
+         all_listings.each do |val, info|
             parsed_listings_array <<
             {
                 "listing_class" => val.css('div.details-title a')[0]['data-gtm-listing-type'],
