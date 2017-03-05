@@ -1,9 +1,7 @@
 class Parser
 
-    attr_reader :parsed_listing
-
     def get_parsed_listings(listings)
-        @parsed_listings = build_listing_array(listings)
+        parsed_listings = build_listing_array(listings)
     end
 
     # Parse data for required information and build an array of hashes

@@ -3,12 +3,10 @@
 
 class TopListings
 
-    attr_reader :response
-
         def get_listings
             all_sales_listings = find_sales_listings
             all_rental_listings = find_rental_listings
-            @response = all_sales_listings += all_rental_listings
+            response = all_sales_listings += all_rental_listings
         end
 
         #open and parse sales html document using nokogiri

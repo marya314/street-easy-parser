@@ -3,39 +3,27 @@ require 'pry'
 
 class Runner
 
-    attr_reader :top_listings, :parsed_data
-
-    def initialize(top_listings)
-        @top_listings = top_listings
-    end
-
-    def scrape_data
-        #get all sales and rental listings
-        response = @top_listings.get_listings
-        #get parsed data array of hashes with required information for each listing
-        @parsed_data = Parser.new
-        parsed_response = @parsed_data.get_parsed_listings(response)
-        #convert data into json
-        json_data = response_to_json(parsed_response)
-        #open json file
-        json_file_open(json_data)
-    end
-
-private
-        #convert data to json and push into an array
-        def response_to_json(parsed_response)
-            json_arr = []
-            parsed_response.each do |hash|
-                json_arr << hash.to_json
-            end
+        def initialize(top_listings)
+            @top_listings = top_listings
         end
 
-        #put array of json data into file and open it
-        def json_file_open(json_data)
-            File.open("listings.json", "w") do |f|
-              f.write(JSON.pretty_generate(json_data.flatten))
-            end
+        def scrape_data
+            #get all sales and rental listings
+            response = @top_listings.get_listings
+            #get parsed data array of hashes with required information for each listing
+            parsed_data = Parser.new
+            parsed_response = parsed_data.get_parsed_listings(response)
+            #convert data into json; write and open json file
+            write_open_json_file(parsed_response)
         end
+
+    private
+            #convert parsed data to json and open json file
+            def write_open_json_file(parsed_response)
+                File.open("listings.json", "w") do |f|
+                  f.write(JSON.pretty_generate(parsed_response))
+                end
+            end
 end
 
 #run program

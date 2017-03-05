@@ -7,3 +7,5 @@ Street Easy Parser is a lightweight Ruby program that scrapes the most expensive
 1. Run `bundle install`.
 2. Run `ruby lib/runner.rb`.
 3. Open the resulting listings.json file.
+
+To run tests, run `rspec`.
