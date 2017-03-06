@@ -16,9 +16,7 @@ class TopListingsScraper
       #find all sales entries
       all_sales_listings = sales_doc.css('.details')
       #remove the first two nodes ('featured' listings)
-      all_sales_listings.shift
-      all_sales_listings.shift
-      all_sales_listings
+      all_sales_listings[2..-1]
     end
 
     #open and parse rental html document using nokogiri
@@ -28,9 +26,7 @@ class TopListingsScraper
       #find all rental entries
       all_rental_listings = rental_doc.css('.details')
       #remove the first two nodes ('featured' listings)
-      all_rental_listings.shift
-      all_rental_listings.shift
-      all_rental_listings
+      all_rental_listings[2..-1]
     end
 
 end
