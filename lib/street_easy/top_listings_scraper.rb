@@ -1,5 +1,5 @@
 
-#I was not able to scrape the website due to a 405: Method Not Allowed error. I downloaded the content of the search into two HTML files and uploaded them in spec/fixtures. The following code scrapes data from the HTML files.
+#I was not able to scrape the website due to a 405: Method Not Allowed error. I downloaded the content of the search into two HTML files and uploaded them in fixtures. The following code scrapes data from the HTML files.
 
 class TopListingsScraper
 
